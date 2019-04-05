@@ -158,6 +158,69 @@ function isEmpty(q) {
   return q.first ? false : true;
 }
 
+function squareDance(q) {
+  let currNode = q.first;
+  let maleDancers = new Queue();
+  let femaleDancers = new Queue();
+  let remainingM = 0;
+  let remainingF = 0;
+
+  while(currNode !== null) {
+    let person = currNode.value;
+    let hisPair, herPair;
+
+    if(person[0] === 'M') {
+      if(femaleDancers.first === null) {
+        maleDancers.enqueue(person);
+        remainingM++;
+      } else {
+        hisPair = femaleDancers.dequeue();
+        console.log(`${hisPair} + ${person}`);
+        remainingF--;
+      }
+    } else if(person[0] === 'F') {
+      if(maleDancers.first === null) {
+        femaleDancers.enqueue(person);
+        remainingF++;
+      } else {
+        herPair = maleDancers.dequeue();
+        console.log(`${person} + ${herPair}`);
+        remainingM--;
+      }
+    }
+
+    currNode = currNode.next;
+  }
+
+  console.log(`There are ${remainingM} male dancers waiting to dance`);
+  console.log(`There are ${remainingF} female dancers waiting to dance`);
+}
+
+function ophidianBank() {
+  console.log('a day in the life of ophidian bank');
+  const bank = new Queue();
+
+  for(let i = 1; i <= 10; i++) {
+    bank.enqueue('rando #' + i);
+  }
+
+  while(bank.first !== null) {
+    let chance = Math.floor(Math.random() * 4) + 1;
+    let customer;
+
+    if(chance === 4) {
+      let guy = bank.dequeue();
+      bank.enqueue(guy);
+      console.log('back of the line you go,', guy);
+    } else {
+      customer = bank.dequeue();
+      console.log('the bank served customer', customer);
+    }
+  }
+
+}
+
+
 function main() {
   const starTrekQ = new Queue();
   const starTrekDQ = new DoubleQueue();
@@ -192,16 +255,32 @@ function main() {
   // console.log(peek(starTrekDQ));
 
 
-  starTrekSQ.enqueue('Kirk');
-  starTrekSQ.enqueue('Spock');
-  starTrekSQ.enqueue('Uhura');
-  starTrekSQ.enqueue('Sulu');
-  starTrekSQ.enqueue('Checkov');
+  // starTrekSQ.enqueue('Kirk');
+  // starTrekSQ.enqueue('Spock');
+  // starTrekSQ.enqueue('Uhura');
+  // starTrekSQ.enqueue('Sulu');
+  // starTrekSQ.enqueue('Checkov');
 
-  starTrekSQ.dequeue();
-  starTrekSQ.dequeue();
+  // starTrekSQ.dequeue();
+  // starTrekSQ.dequeue();
 
-  console.log(displaySQ(starTrekSQ));
+  // console.log(displaySQ(starTrekSQ));
+
+  // const people = new Queue();
+
+  // people.enqueue('F Jane');
+  // people.enqueue('M Frank');
+  // people.enqueue('M John');
+  // people.enqueue('M Sherlock');
+  // people.enqueue('F Madonna');
+  // people.enqueue('M David');
+  // people.enqueue('M Christopher');
+  // people.enqueue('F Beyonce');
+
+  // console.log(squareDance(people));
+
+
+  console.log(ophidianBank());
 }
 
 main();
